@@ -15,7 +15,7 @@ void main() {
     Patient("Евгения Лабода", random.nextInt(3) + 1),
   ];
 
-  var hospital = Hospital(doctorList[0]);
+  var hospital = Hospital(doctorList);
 
-  hospital.processRequests(patient, doctorList);
+  hospital.processRequests(patient);
 }
