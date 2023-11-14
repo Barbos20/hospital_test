@@ -1,33 +1,16 @@
 class HospitalPerson {
   String name;
-
-  HospitalPerson(this.name);
+  String position;
+  int opportunity;
+  HospitalPerson(this.name, this.position, this.opportunity);
 }
 
-class ChiefDoctor extends HospitalPerson {
-  ChiefDoctor(String name) : super(name);
-
+class PersonDoctor extends HospitalPerson {
+  PersonDoctor(String name, String position, int opportunity)
+      : super(name, position, opportunity);
   void handleRequest(Patient patient) {
     print(
-        "Главврач $name обрабатывает запрос пациента ${patient.name} c сотоянием ${patient.isCritical}");
-  }
-}
-
-class Doctor extends HospitalPerson {
-  Doctor(String name) : super(name);
-
-  void handleRequest(Patient patient) {
-    print(
-        "Врач $name обрабатывает запрос пациента ${patient.name} c сотоянием ${patient.isCritical}");
-  }
-}
-
-class Nurse extends HospitalPerson {
-  Nurse(String name) : super(name);
-
-  void handleRequest(Patient patient) {
-    print(
-        "Медсестра $name обрабатывает запрос пациента ${patient.name} c сотоянием ${patient.isCritical}");
+        "$position $name обрабатывает запрос пациента ${patient.name} c сотоянием ${patient.isCritical}");
   }
 }
 
@@ -39,21 +22,15 @@ class Patient {
 }
 
 class Hospital {
-  ChiefDoctor chiefDoctor;
-  Doctor doctors;
-  Nurse nurses;
+  PersonDoctor doctors;
+  Hospital(this.doctors);
 
-  Hospital(this.chiefDoctor, this.doctors, this.nurses);
-
-  void processRequest(Patient patient) {
-    if (patient.isCritical == 3) {
-      chiefDoctor.handleRequest(patient);
-    } else {
-      if (patient.isCritical == 2) {
-        doctors.handleRequest(patient);
-      } else {
-        if (patient.isCritical == 1) {
-          nurses.handleRequest(patient);
+  void processRequests(List<Patient> patients, List<PersonDoctor> doctorList) {
+    for (var doctor in doctorList) {
+      for (var patient in patients) {
+        if (patient.isCritical == doctor.opportunity) {
+          print(
+              "${doctor.position} ${doctor.name} обрабатывает запрос пациента ${patient.name} c состоянием ${patient.isCritical}");
         }
       }
     }

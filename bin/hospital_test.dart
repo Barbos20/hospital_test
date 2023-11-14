@@ -1,19 +1,21 @@
 import 'dart:math';
-
 import 'package:hospital_test/hospital_test.dart';
 
 void main() {
-  var chiefDoctor = ChiefDoctor("Иванов");
-  var doctors = Doctor("Сидоров");
-  var nurses = Nurse("Ольга");
-
-  var hospital = Hospital(chiefDoctor, doctors, nurses);
-
   var random = Random();
+  List<PersonDoctor> doctorList = [
+    PersonDoctor("Иван Иванов", "Главврач", 3),
+    PersonDoctor("Мария Сидорова", "Врач", 2),
+    PersonDoctor("Татьяна Николаевна", "Медсестра", 1),
+  ];
 
-  var criticalPatient = Patient("Васька", random.nextInt(3) + 1);
-  var nonCriticalPatient = Patient("Борис", random.nextInt(3) + 1);
+  List<Patient> patient = [
+    Patient("Петр Петров", random.nextInt(3) + 1),
+    Patient("Анна Сидорова", random.nextInt(3) + 1),
+    Patient("Евгения Лабода", random.nextInt(3) + 1),
+  ];
 
-  hospital.processRequest(criticalPatient);
-  // hospital.processRequest(nonCriticalPatient);
+  var hospital = Hospital(doctorList[0]);
+
+  hospital.processRequests(patient, doctorList);
 }
